@@ -1,0 +1,15 @@
+<div style="text-align: center">
+  <figure>
+    {% if include.width %}
+    <img
+      src="{{ include.imageurl }}"
+      alt="{{ include.title }}"
+      width="{{ include.width }}"
+    />
+    {% else %}
+    <img src="{{ include.imageurl }}" alt="{{ include.title }}" />
+    {% endif %} {% if include.caption %}
+    <figcaption class="caption-text">{{ include.caption }}</figcaption>
+    {% endif %}
+  </figure>
+</div>

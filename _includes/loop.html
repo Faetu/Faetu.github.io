@@ -1,0 +1,14 @@
+{% for post in paginator.posts %}
+<article class="post">
+    {% if post.featured_image %}
+    <a href="{{ site.baseurl }}{{ post.url }}" class="post-thumbnail">
+    <div class="container">
+    <img src="{{ "/images/posts/" | append: post.featured_image | prepend: site.baseurl }}" alt="{% if post.featured_image_alt %}{{ post.featured_image_alt }}{% else %}{{ post.title }}{% endif %}">
+        <div class="overlay">
+        <div class="text">{{ post.title }}</div>
+</div>
+    </div>
+  </a>
+    {% endif %}
+</article><!-- .post -->
+{% endfor %}

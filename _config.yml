@@ -1,0 +1,61 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site title
+title: Faetu's Cyber Security Blog
+
+# Below the site title
+tagline: Writeups for thm and htb and other cyber security related stuff.
+
+# Site logo
+logo:
+
+# A description of your site for social meta tag, search engines, and feed.xml
+description: |
+  Just another writeup blog :)
+
+# The base hostname & protocol of your site for where absolute urls are needed
+url: https://Faetu.github.io
+
+# The subpath of your site, if you want to host your path on a subpath like on GitHub Pages. e.g. /blog
+baseurl:
+
+sass:
+  sass_dir: _sass
+
+# Site navigation - each item must have a title and a url.
+navigation:
+- text: Home
+  url: /
+- text: About
+  url: /about/
+- text: Archives
+  url: /tags/
+
+# Author information - author info at the bottom of the post
+author_name: "Fatos Shala"
+author_bio: "My name is Fatos Shala. I did an apprenticeship as a polymechanic, but I already had a passion for IT back then."
+author_url: "https://github.com/Faetu"
+author_location: "Solothurn, Switzerland"
+author_image: authorimage.jpeg
+
+# Footer newsletter widget - add your form action url for MailChimp signup form here
+#mailchimp_url: "//justgoodthemes.us4.list-manage.com/subscribe/post?u=78f1bab16028354caeb23aecd&amp;id=4a7330d117"
+
+# Social links in the site footer
+github_username: "Faetu"
+linkedin_username: "faetu"
+
+# http://jekyllrb.com/docs/pagination/
+paginate: 5
+paginate_path: '/blog/page:num/'
+plugins: [jekyll-paginate]
+
+permalink: pretty
+markdown: kramdown
+kramdown:
+    auto_ids: false
