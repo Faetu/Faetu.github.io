@@ -19,7 +19,7 @@ plugins:
 
 title: Faetu # the main title
 
-tagline: Coding, Pentesting and other IT stuff # it will display as the sub-title
+tagline: Coding, Pentesting and other IT stuff. # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A blog mainly about pentesting.
