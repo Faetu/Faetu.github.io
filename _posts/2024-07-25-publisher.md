@@ -15,6 +15,7 @@ tags:
     shebang,
   ]
 categories: [TryHackMe, Writeup]
+redirect_from: /2024/07/25/publisher/
 ---
 
 Hi,
