@@ -3,7 +3,7 @@ title: "The Return of the Yeti - Flag 1 Room"
 date: 2023-12-28
 image: /assets/images//aoc2023/yeti_banner_sq1.png
 tags: [tryhackme, writeups, wireshark]
-categories: [TryHackMe, Writeup]
+categories: [TryHackMe, Writeup, Event]
 redirect_from: /2023/12/28/AOC-2023-SideQuest-Flag-1/
 ---
 

