@@ -5,6 +5,8 @@ order: 4
 image: "/assets/images/aboutPage.jpeg"
 ---
 
+<script src="https://tryhackme.com/badge/146648"></script>
+
 My name is Fatos Shala. I did an apprenticeship as a polymechanic, but I already
 had a passion for IT back then. After awhile I took the opportunity to get a job
 into the IT industry as a «IT Security Engineer». But my goal is to get into the
