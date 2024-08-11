@@ -15,7 +15,7 @@ This is my writeup about the [TryHackMe](https://tryhackme.com) medium box ["Blo
 ## 1. What is the username of the first person who accessed our server?
 
 On this stage, I ignored the `lsass.DMP`{: .filepath} file and focusses on the pcap file.
-To get the answer to this question, I just had to open the pcap file with [wireshark]():
+To get the answer to this question, I just had to open the pcap file with [wireshark](https://www.wireshark.org):
 
 ![first username light](/assets/images/blockroom/first_username_light.png){: .light .shadow .w-75}
 ![first username dark](/assets/images/blockroom/first_username_dark.png){: .dark .shadow .w-75}
