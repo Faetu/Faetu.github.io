@@ -10,7 +10,7 @@ redirect_from: /2024/08/11/blockroom/
 
 Hi,
 
-This is my writeup about the [TryHackMe](https://tryhackme.com) medium box ["Block"](https://tryhackme.com/r/room/blockroom).
+This is my writeup about the [TryHackMe](https://tryhackme.com) medium room ["Block"](https://tryhackme.com/r/room/blockroom).
 
 ## 1. What is the username of the first person who accessed our server?
 
@@ -20,7 +20,7 @@ To get the answer to this question, I just had to open the pcap file with [wires
 ![first username light](/assets/images/blockroom/first_username_light.png){: .light .shadow .w-75}
 ![first username dark](/assets/images/blockroom/first_username_dark.png){: .dark .shadow .w-75}
 
-At this moment all should know, that we are working with a windows machine. Better say, with a tcpdump of a windows machine. So you should be familier with ntlm. If not, read this [article about NTLMv2](https://book.hacktricks.xyz/windows-hardening/ntlm) and/or do the [WIndows Fundamentaks](https://tryhackme.com/module/windows-fundamentals) + [Windows Exploitation Basics](https://tryhackme.com/module/hacking-windows-1) learning module on [TryHackMe](https://tryhackme.com).
+At this moment all should know, that we are working with a windows machine. Better say, with a tcpdump of a windows machine. So you should be familier with ntlm. If not, read this [article about NTLMv2](https://book.hacktricks.xyz/windows-hardening/ntlm) and/or do the [Windows Fundamentaks](https://tryhackme.com/module/windows-fundamentals) + [Windows Exploitation Basics](https://tryhackme.com/module/hacking-windows-1) learning module on [TryHackMe](https://tryhackme.com).
 
 ## 2. What is the password of the user in question 1?
 
@@ -70,7 +70,7 @@ To obtain this, go back to frame 11 where the username and domain was found and 
 This one is also tricky, because the response can be copied one line above the NTProofStr line from before, but it has the NTProofStr merged into it. Gladly it is at the beginning of the response string.
 
 Remove it by hand or use shell. As I use [fish](https://fishshell.com) this command will do the job:
-```fish
+```bash
 echo (string replace -r '^NTProofStr' '' "NTLMv2Response")
 ```
 {: .nolineno}
