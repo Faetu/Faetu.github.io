@@ -14,13 +14,13 @@ This is my writeup about the [TryHackMe](https://tryhackme.com) medium room ["Bl
 
 ## 1. What is the username of the first person who accessed our server?
 
-On this stage, I ignored the `lsass.DMP`{: .filepath} file and focusses on the pcap file.
+On this stage, I ignored the `lsass.DMP`{: .filepath} file and focuses on the pcap file.
 To get the answer to this question, I just had to open the pcap file with [wireshark](https://www.wireshark.org):
 
 ![first username light](/assets/images/blockroom/first_username_light.png){: .light .shadow .w-75}
 ![first username dark](/assets/images/blockroom/first_username_dark.png){: .dark .shadow .w-75}
 
-At this moment all should know, that we are working with a windows machine. Better say, with a tcpdump of a windows machine. So you should be familier with ntlm. If not, read this [article about NTLMv2](https://book.hacktricks.xyz/windows-hardening/ntlm) and/or do the [Windows Fundamentaks](https://tryhackme.com/module/windows-fundamentals) + [Windows Exploitation Basics](https://tryhackme.com/module/hacking-windows-1) learning module on [TryHackMe](https://tryhackme.com).
+At this moment all should know, that we are working with a windows machine. More specifically, with a tcpdump of a Windows machine. So you should be familiar with ntlm. If not, read this [article on NTLMv2](https://book.hacktricks.xyz/windows-hardening/ntlm) and/or do the [Windows Fundamentaks](https://tryhackme.com/module/windows-fundamentals) + [Windows Exploitation Basics](https://tryhackme.com/module/hacking-windows-1) learning module on [TryHackMe](https://tryhackme.com).
 
 ## 2. What is the password of the user in question 1?
 
@@ -33,7 +33,7 @@ But, what do we need to bruteforce? This is the real question here. Because to b
 4. NTProofStr aka HMAC-MD5
 5. NTLMv2 Response
 
-All those informations have to be joined together and only separated by `:`, except the separation between username and domain, there has to be two colons.
+All those information have to be joined together and only separated by `:`, except the separation between username and domain, there has to be two colons.
 
 Take a look at the skeleton of our hash:
 ```
@@ -46,7 +46,7 @@ To obtain every part, the `traffic.pcapng`{: .filepath} is all we need.
 
 ### 2.1 Domain
 
-The username is known form the previous question. And also the domain! As can be seen on the screenshot of the previous question, the domain is the `WORKGROUP` right before the username.
+The username is known from the previous question. And also the domain! As can be seen on the screenshot of the previous question, the domain is the `WORKGROUP` right before the username.
 
 ### 2.2 NTLM Server Challenge
 
@@ -60,7 +60,7 @@ Just right click on that line and select `copy`/`value`.
 ### 2.3 NTProofStr / HMAC-MD5
 
 If you read somewhere about HMAC-MD5 then this is the NTProofStr on wireshark.
-To obtain this, go back to frame 11 where the username and domain was found and search for it.
+To obtain this, go back to frame 11 where the username and domain were found and search for it.
 
 ![NTProofStr light](/assets/images/blockroom/ntproofstr_light.png){: .light .shadow .w-75}
 ![NTProofStr dark](/assets/images/blockroom/ntproofstr_dark.png){: .dark .shadow .w-75}
@@ -69,12 +69,12 @@ To obtain this, go back to frame 11 where the username and domain was found and 
 
 This one is also tricky, because the response can be copied one line above the NTProofStr line from before, but it has the NTProofStr merged into it. Gladly it is at the beginning of the response string.
 
-Remove it by hand or use shell. As I use [fish](https://fishshell.com) this command will do the job:
+Remove it manually or use a shell. As I use [fish](https://fishshell.com) this command will do the job:
 ```bash
 echo (string replace -r '^NTProofStr' '' "NTLMv2Response")
 ```
 {: .nolineno}
-For bash:
+For Bash:
 ```bash
 echo "${'NTProofStr'#'NTLMv2Response'}"
 ```
@@ -95,7 +95,7 @@ hashcat -m 5600 -a 0 mrealman_hash /usr/share/SecLists/rockyou.txt -d 2
 
 ## 3. What is the flag that the first user got access to?
 
-The flag was clearly in a file saved and the user download it over smb. To get the file content, the smb encrypted frame has to be decrypted:
+The flag was clearly in a file saved and the user download it over smb. To get the file content, the SMB-encrypted frame must be decrypted:
 
 ![Encrypted SMB3](/assets/images/blockroom/encrypted_smb.png){: .w-100 .shadow }
 
@@ -113,7 +113,7 @@ The session id can be obtained from the frame 10:
 
 ### 3.2 Session Key
 
-To get the session key more informations are needed:
+To get the session key more information are needed:
 
 1. Username -> Obtained in question 1.
 2. Domain -> Obtained in question 2.
@@ -126,14 +126,14 @@ The encrypted session key can be found in frame 11:
 ![Encrypted Session Key light](/assets/images/blockroom/encrypted_session_key_light.png){: .shadow .w-75 .light}
 ![Encrypted Session Key dark](/assets/images/blockroom/encrypted_session_key_dark.png){: .shadow .w-75 .dark}
 
-Thanks to [Khris Tolbert](https://medium.com/@khristopher.tolbert) for his articel ["Decrypting SMB3 Traffic with just a PCAP? Absolutely (maybe.)"](https://medium.com/maverislabs/decrypting-smb3-traffic-with-just-a-pcap-absolutely-maybe-712ed23ff6a2), where he explains all the steps in good detail.
+Thanks to [Khris Tolbert](https://medium.com/@khristopher.tolbert) for his article ["Decrypting SMB3 Traffic with just a PCAP? Absolutely (maybe.)"](https://medium.com/maverislabs/decrypting-smb3-traffic-with-just-a-pcap-absolutely-maybe-712ed23ff6a2), where he explains all the steps in good detail.
 
-The last piece to get the session key from all those informations, is the python script, which Khris have wrote.
-He wrote it in python2, if you are using python2 then get it from the article. I rewrote it for python3 because I don't use python2 anymore.
+The last piece to get the session key from all those information, is the python script, which Khris have wrote.
+He wrote it in python2, if you are using python2 then get it from the article. I rewrote it for Python 3 because I don't use python2 anymore.
 
 <script src="https://gist.github.com/Faetu/35ff929e64a37980021f19f083939b7e.js"></script>
 
-When running the script with all informations provided, it prints out the session key.
+When running the script with all information provided, it prints out the session key.
 
 ### 3.3 Decrypting SMB2
 
@@ -153,7 +153,7 @@ Or a much simpler way:
 ![Export files light](/assets/images/blockroom/export_objects_light.png){: .light  .w-100}
 ![Export files dark](/assets/images/blockroom/export_objects_dark.png){: .dark  .w-100}
 
-The flag lays inside of the `clients156.csv`{: .filepath} file.
+The flag lies inside of the `clients156.csv`{: .filepath} file.
 
 ## 4. What is the username of the second person who accessed our server?
 
@@ -177,14 +177,14 @@ After a short search, I came up with [pypykatz](https://github.com/skelsec/pypyk
 
 This one takes me hours until I got it. I tried every wordlist on `SecLists/Passwords/`{: .filepath} + `rockyou.txt`{: .filepath} until I gave up on the idea to bruteforce the password of user `eshellstrop`.
 
-At that moment, I tried to get the password by using encrypted smb3 blobs and all other informations available at that moment. The tool I tried, was [dpapick3](https://pypi.org/project/dpapick3/). After hours of try and errors, I gave up and took a day break.
-This break safe me hours of frustration, because I came up with the idea to reread everything until then. I also reread the article mentioned at 3.2 and saw something, which solved my problem quickly:
+At that moment, I tried to get the password by using encrypted smb3 blobs and all other information available at that moment. The tool I tried, was [dpapick3](https://pypi.org/project/dpapick3/). After hours of try and errors, I gave up and took a day break.
+This break saved me hours of frustration, because I came up with the idea to reread everything up to that point. I also reread the article mentioned in 3.2 and saw something, which solved my problem quickly:
 
 ![Reread article light](/assets/images/blockroom/reread_light.png){: .light .shadow .w-75}
 ![Reread article dark](/assets/images/blockroom/reread_dark.png){: .dark .shadow .w-75}
 
 So the script was not written to support ntlm hash beside plain passwords, and because of that, I missed this little phrase.
-Now, beside I rewrote the script from python2 to python3, I also extend it a bit to support ntlm hashes, by adding those options and change some lines:
+Now, beside I rewrote the script from python2 to python3, I also extended it a bit to support NTLM hashes, by adding those options and change some lines:
 
 ```python
 group = parser.add_mutually_exclusive_group(required=True)
@@ -192,9 +192,9 @@ group.add_argument("-p", "--password", help="Plain password of User")
 group.add_argument("-a", "--ntlmhash", help="NTLM Hash of User")
 ```
 
-Now I executed the script with all needed informations which can be found in the `traffic.pcapng`{: .filepath} and instead of the password, I ran it with `-a ESHELLSTROP_NTLM_HASH`.
+Now I executed the script with all needed information which can be found in the `traffic.pcapng`{: .filepath} and instead of the password, I used the `-a ESHELLSTROP_NTLM_HASH` option.
 
-After I got the session key, I add it to wireshark as in 3.3 for the first user and was able to obtain the `clients978.csv`{: .filepath} file, which contains the second flag.
+After I got the session key, I added it to Wireshark as in 3.3 for the first user and was able to obtain the `clients978.csv`{: .filepath} file, which contains the second flag.
 
 
 Good luck! :)
