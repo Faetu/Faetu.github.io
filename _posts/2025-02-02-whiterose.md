@@ -2,7 +2,7 @@
 title: "THM - Whiterose"
 date: 2025-02-02
 image: /assets/images/whiterose/whiterose.png
-tas: [tryhackme, writeups, linux, ffuf, sudoedit, burp-suite]
+tags: [tryhackme, writeups, linux, ffuf, sudoedit, burp-suite, idor]
 categories: [TryHackMe, Writeup, CTF, Easy]
 redirect_from: /2025/02/02/whiterose/
 ---
