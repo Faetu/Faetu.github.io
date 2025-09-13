@@ -2,7 +2,6 @@
 showAuthor = false
 heroStyle = "background"
 showHero = true
-featureimage = "http://localhost:1313/img/aboutme_hu_24c4a22dbb5623a7.png"
 +++
 
 {{<figure
