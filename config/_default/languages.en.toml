@@ -1,0 +1,24 @@
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "Faetu's Space"
+
+[params]
+  displayName = "English"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  logo = "img/shallogo.png"
+  description = "My awesome space"
+
+[params.author]
+  name = "Fatos Shala"
+  email = "fatos.shala@protonmail.ch"
+  image = "img/author.png"
+  headline = "Passionate coder/security Guy"
+  bio = "Code, coffee, and curiosity."
+  links = [
+    { email = "mailto:fatos.shala@protonmail.ch" },
+    { github = "https://github.com/Faetu" },
+    { linkedin = "https://linkedin.com/in/faetu" },
+  ]
