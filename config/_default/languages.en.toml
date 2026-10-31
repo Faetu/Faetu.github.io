@@ -1,0 +1,22 @@
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "Faetu's OLD Space"
+
+[params]
+  displayName = "English"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  logo = "img/shallogo.png"
+  description = "My awesome space"
+
+[params.author]
+  name = "Faetu"
+  email = ""
+  image = ""
+  headline = "Passionate coder/security Guy"
+  bio = "Code, coffee, and curiosity."
+  links = [
+    { github = "https://github.com/Faetu" },
+  ]
